@@ -283,6 +283,8 @@ p {
   width: 24px;
   height: 24px;
   line-height: 24px;
+  /* category__count는 span tag 인데 span은 inline element라 자신의 content 만큼 공간을 차지. */
+  /* display : inline-block으로 설정해서 block 단위로 content 사이즈에 상관없게 함 */
   display: inline-block;
   position: relative;
   top: -20px;
@@ -296,10 +298,10 @@ p {
   justify-content: center;
 }
 .project {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: 280px;
   height: 250px;
   margin: 2px;
@@ -309,23 +311,24 @@ p {
   max-width: 100%;
   max-height: 100%;
 }
+/* project__description은 project에 들어가있기 때문에 원래 다큐멘트 플로우에는 공간을 차지하게 되어있음 */
+/* 원래 들어있던 박스에서 벗어나 위치를 바꾸는 것은 position : absolute */
+/* relative 는 원래 자리는 그대로 차지하고 유지하는 상태로 움직임 */
+/* absolute는 근접한 부모노드 중 기본값을 static을 사용하지 않는 부모를 찾아감 */
+/* description의 부모인 project는 아무것도 지정하지 않아서 default로 static 사용 */
 .project__description {
-  background-color: black;
-  width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   opacity: 0;
-  transform: translateY(10px);
   transition: all var(--animation-duration) ease-in;
-}
-.project:hover .project__description {
-  opacity: 0.8;
-  transform: translateY(0px);
+  transform: translateY(10px);
 }
 .project__description h3 {
   color: var(--color-white);
@@ -340,4 +343,8 @@ p {
   left: 50%;
   margin-left: -12px;
   margin-top: 8px;
+}
+.project:hover .project__description {
+  opacity: 0.8;
+  transform: translateY(0px);
 }
