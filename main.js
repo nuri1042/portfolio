@@ -14,7 +14,7 @@ document.addEventListener('scroll', () => {
 
 //Handle Scrolling when tapping on the navbar menu
 const $navbarMenu = document.querySelector('.navbar__menu');
-$navbarMenu.addEventListener('click', () => {
+$navbarMenu.addEventListener('click', (event) => {
   const link = event.target.dataset.link;
   if (!link) {
     return;
@@ -59,8 +59,14 @@ $workCategory.addEventListener('click', (event) => {
   if (!filter) {
     return;
   }
-  $workProjects.classList.add('anim-out');
 
+  // remove selection from previous and select the new one
+  const $active = document.querySelector('.category__btn.selected');
+  $active.classList.remove('selected');
+  const target = event.target.nodeName === 'BUTTON' ? event.target : event.target.parentNode;
+  target.classList.add('selected');
+
+  $workProjects.classList.add('anim-out');
   setTimeout(() => {
     $projects.forEach((project) => {
       if (filter === '*' || filter === project.dataset.type) {
