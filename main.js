@@ -15,11 +15,19 @@ document.addEventListener('scroll', () => {
 //Handle Scrolling when tapping on the navbar menu
 const $navbarMenu = document.querySelector('.navbar__menu');
 $navbarMenu.addEventListener('click', (event) => {
-  const target = event.target;
-  const link = target.dataset.link;
+  scrollIntoView(event);
+});
+
+// Handle click on 'contact me' button on Home
+const $homeContact = document.querySelector('.home__contact');
+$homeContact.addEventListener('click', (event) => {
+  scrollIntoView(event);
+});
+function scrollIntoView(event) {
+  const link = event.target.dataset.link;
   if (!link) {
     return;
   }
   const scrollTo = document.querySelector(link);
   scrollTo.scrollIntoView({ behavior: 'smooth' });
-});
+}
